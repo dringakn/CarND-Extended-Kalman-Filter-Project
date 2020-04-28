@@ -28,19 +28,32 @@ void KalmanFilter::Predict() {
 }
 
 void KalmanFilter::Update(const VectorXd &z) {
-  VectorXd y = z - H_ * x_; // residue
-  MatrixXd Ht = H_.transpose(); // intermediate
+  VectorXd y = z - H_ * x_;       // residue
+  MatrixXd Ht = H_.transpose();   // intermediate
   MatrixXd S = H_ * P_ * Ht + R_; // innovation
-  MatrixXd Si = S.inverse(); // innovation inverse
+  MatrixXd Si = S.inverse();      // innovation inverse
   MatrixXd PHt = P_ * Ht;
   MatrixXd K = PHt * Si; // Kalman gain
-  x_ = x_ + (K * y); // update states
+  x_ = x_ + (K * y);     // update states
   MatrixXd I = MatrixXd::Identity(x_.size(), x_.size());
   P_ = (I - K * H_) * P_; // update state covariance
 }
 
 void KalmanFilter::UpdateEKF(const VectorXd &z) {
-  /**
-   * TODO: update the state by using Extended Kalman Filter equations
-   */
+
+  double theta = atan2(x_(1), x_(0));
+  double rho = sqrt(x_(0) * x_(0) + x_(1) * x_(1));
+
+  double rho_dot = (fabs(rho) < EPS) ? 0 : (x_(0) * x_(2) + x_(1) * x_(3)) / rho;
+  VectorXd h = VectorXd(3);
+  h << rho, theta, rho_dot;
+  VectorXd y = z - h;             // residue
+  MatrixXd Ht = H_.transpose();   // intermediate
+  MatrixXd S = H_ * P_ * Ht + R_; // innovation
+  MatrixXd Si = S.inverse();      // innovation inverse
+  MatrixXd PHt = P_ * Ht;
+  MatrixXd K = PHt * Si; // Kalman gain
+  x_ = x_ + (K * y);     // update states
+  MatrixXd I = MatrixXd::Identity(x_.size(), x_.size());
+  P_ = (I - K * H_) * P_; // update state covariance
 }
