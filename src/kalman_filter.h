@@ -3,6 +3,8 @@
 
 #include "Eigen/Dense"
 
+#define EPS (std::numeric_limits<float>::epsilon())
+
 class KalmanFilter {
  public:
   /**
