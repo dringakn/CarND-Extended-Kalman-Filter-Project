@@ -4,6 +4,8 @@
 #include <vector>
 #include "Eigen/Dense"
 
+#define EPS (std::numeric_limits<float>::epsilon())
+
 class Tools {
  public:
   /**
