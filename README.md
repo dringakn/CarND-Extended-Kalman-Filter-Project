@@ -5,12 +5,19 @@
 
 [//]: # (Image References)
 
-[image1]: ./examples/Convergance_Result.png "Final Result"
-[video1]: ./examples/Particle_Filter_For_Robot_Kidnap_Problem.gif "Video"
+[image1]: ./examples/Result.png "Final Result"
+[video1]: ./examples/EKF_Dataset_1.gif "Video"
+[video2]: ./examples/EKF_Dataset_2.gif "Video"
 
-# Extended Kalman Filter Project Starter Code
+# Extended Kalman Filter
 
-In this project you will utilize a kalman filter to estimate the state of a moving object of interest with noisy lidar and radar measurements. Passing the project requires obtaining RMSE values that are lower than the tolerance outlined in the project rubric. 
+The goal of this project is to implement a kalman filter, in C++, to estimate the state of a moving object of interest with noisy lidar and radar measurements. The laser measurements provides the x and y position coordinates while the radar measurements provides the range, bearing and cartesian velocity components. The evaluation metrics are the Root Mean Square Error (RMSE) of car position and velocity, which are are shown as follows: 
+
+![Dataset-1][video1] ![Dataset-2][video2]
+
+Blue circles are radar measurements (position markers inferred from radius and angle; the also-supplied radial velocity measurements are not shown).
+
+Green markers are the car's position as estimated by the Kalman filter. It's clear that the Kalman filter does a good job of tracking the car's position with significantly reduced noise.
 
 This project involves the Term 2 Simulator which can be downloaded [here](https://github.com/udacity/self-driving-car-sim/releases).
 
@@ -38,10 +45,6 @@ After cloning the repository, the main program can be built and run by doing the
 
 ## Generating Additional Data
 
-This is optional!
-
 If you'd like to generate your own radar and lidar data, see the
 [utilities repo](https://github.com/udacity/CarND-Mercedes-SF-Utilities) for
 Matlab scripts that can generate additional data.
-
-## Reflection
