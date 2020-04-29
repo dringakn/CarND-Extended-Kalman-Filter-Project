@@ -53,21 +53,15 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
       float rho = measurement_pack.raw_measurements_[0];     // range
       float phi = measurement_pack.raw_measurements_[1];     // bearing
       float rho_dot = measurement_pack.raw_measurements_[2]; // rate
-      while (phi > M_PI)
-        phi -= 2.0 * M_PI; // limit bearing between [-pi, pi]
-      while (phi < -M_PI)
-        phi += 2.0 * M_PI;
-      ekf_.x_ << rho * cos(phi), rho * sin(phi), rho_dot * cos(phi),
-          rho_dot * sin(phi);
+      while (phi > M_PI) phi -= 2.0 * M_PI; // limit bearing between [-pi, pi]
+      while (phi < -M_PI)phi += 2.0 * M_PI;
+      ekf_.x_ << rho * cos(phi), rho * sin(phi), rho_dot * cos(phi), rho_dot * sin(phi);
     } else if (measurement_pack.sensor_type_ == MeasurementPackage::LASER) {
-      ekf_.x_ << measurement_pack.raw_measurements_[0],
-          measurement_pack.raw_measurements_[1], 0, 0;
+      ekf_.x_ << measurement_pack.raw_measurements_[0], measurement_pack.raw_measurements_[1], 0, 0;
     }
 
-    if (fabs(ekf_.x_(0)) < EPS)
-      ekf_.x_(0) = EPS; // Too small value
-    if (fabs(ekf_.x_(1)) < EPS)
-      ekf_.x_(1) = EPS; // Too small value
+    if (fabs(ekf_.x_(0)) < EPS) ekf_.x_(0) = EPS; // Too small value
+    if (fabs(ekf_.x_(1)) < EPS) ekf_.x_(1) = EPS; // Too small value
     previous_timestamp_ = measurement_pack.timestamp_;
 
     // done initializing, no need to predict or update
