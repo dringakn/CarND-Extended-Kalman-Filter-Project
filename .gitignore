@@ -4,6 +4,9 @@
 # build files
 build/
 
+# Miscellenous
+ide_profiles
+
 # editor config
 .vscode/
 
