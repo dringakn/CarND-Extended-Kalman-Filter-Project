@@ -78,15 +78,15 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
    * Update the process noise covariance matrix. Time is measured in seconds.
    * Use noise_ax = 9 and noise_ay = 9 for your Q matrix.
    */
-  double dt = (measurement_pack.timestamp_ - previous_timestamp_) / 1000000.0;
+  const double dt = (measurement_pack.timestamp_ - previous_timestamp_) / 1000000.0;
   previous_timestamp_ = measurement_pack.timestamp_;
-  double dt_2 = dt * dt;      // dt^2
-  double dt_3 = dt_2 * dt;    // dt^3
-  double dt_4 = dt_3 * dt;    // dt^4
-  double dt_4_4 = dt_4 / 4.0; // dt^4/4
-  double dt_3_2 = dt_3 / 2.0; // dt^3/2
-  double noise_ax = 9.0; // Noise covariance matrix computation
-  double noise_ay = 9.0; // Noise values from the task
+  const double dt_2 = dt * dt;      // dt^2
+  const double dt_3 = dt_2 * dt;    // dt^3
+  const double dt_4 = dt_3 * dt;    // dt^4
+  const double dt_4_4 = dt_4 / 4.0; // dt^4/4
+  const double dt_3_2 = dt_3 / 2.0; // dt^3/2
+  const double noise_ax = 9.0; // Noise covariance matrix computation
+  const double noise_ay = 9.0; // Noise values from the task
 
   // State transition matrix update
   ekf_.F_ = MatrixXd(4, 4);
@@ -116,3 +116,4 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
   cout << "x_ = " << ekf_.x_ << endl;
   cout << "P_ = " << ekf_.P_ << endl;
 }
+

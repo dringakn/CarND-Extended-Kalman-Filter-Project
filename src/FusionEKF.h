@@ -34,6 +34,9 @@ class FusionEKF {
  private:
   // check whether the tracking toolbox was initialized or not (first measurement)
   bool is_initialized_;
+  
+  // Utility function to normalize an angle between [-pi, pi]
+  void NormalizeAngle(double&);
 
   // previous timestamp
   long long previous_timestamp_;
